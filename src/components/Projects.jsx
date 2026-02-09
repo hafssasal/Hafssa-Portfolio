@@ -1,33 +1,52 @@
 export default function Projects(){
 
+const base = import.meta.env.BASE_URL;
+
 const projects=[
 
 {
 name:"Supervision réseau SNMP – PFE",
 description:"Conception et mise en place d’une solution complète de supervision réseau permettant la surveillance en temps réel des serveurs Linux et Windows. Le système intègre la collecte des données via SNMP, l’analyse des performances, la génération de graphiques statistiques et l’envoi automatique d’alertes en cas d’anomalie.",
 skills:"Nagios XI, Cacti, SNMP, MIB Browser, Linux, Windows Server, VirtualBox",
-images:["/assets/NAGIOSXI1.png","/assets/NAGIOSXI2.png","/assets/CACTI1.png","/assets/CACTI2.png"]
+images:[
+`${base}assets/NAGIOSXI1.png`,
+`${base}assets/NAGIOSXI2.png`,
+`${base}assets/CACTI1.png`,
+`${base}assets/CACTI2.png`
+]
 },
 
 {
 name:"Plateforme E-Doctorat",
 description:"Développement d’une plateforme web dédiée à la gestion des candidatures doctorales intégrant les fonctionnalités de dépôt de dossiers, validation académique, gestion des commissions et suivi administratif complet des candidats.",
 skills:"Spring Boot, MySQL, React, TanStack Query, Design Patterns, Maven, Vite",
-images:["/assets/EDOCTORAT1.png","/assets/EDOCTORAT2.png","/assets/EDOCTORAT3.png","/assets/EDOCTORAT4.png"]
+images:[
+`${base}assets/EDOCTORAT1.png`,
+`${base}assets/EDOCTORAT2.png`,
+`${base}assets/EDOCTORAT3.png`,
+`${base}assets/EDOCTORAT4.png`
+]
 },
 
 {
 name:"Application gestion de stock – CHU Hassan II",
 description:"Réalisation d’une application web de gestion des équipements hospitaliers permettant la consultation, l’ajout, la modification et la traçabilité des ressources afin d’améliorer l’efficacité de la gestion interne du centre hospitalier.",
 skills:"Angular, Spring Boot, MySQL, Maven, REST API",
-images:["/assets/CHU1.png","/assets/CHU2.png","/assets/CHU3.png","/assets/CHU4.png"]
+images:[
+`${base}assets/CHU1.png`,
+`${base}assets/CHU2.png`,
+`${base}assets/CHU3.png`,
+`${base}assets/CHU4.png`
+]
 },
 
 {
 name:"Application Mobile Flutter",
 description:"Développement d’une application mobile multiplateforme permettant la gestion des utilisateurs, la synchronisation des données avec une API REST et la mise en place d’une interface moderne responsive adaptée aux besoins fonctionnels de l’utilisateur.",
 skills:"Flutter, Ktor, Gradle, GitHub, Render Cloud",
-images:["/assets/appflutter.png"]
+images:[
+`${base}assets/appflutter.png`
+]
 }
 
 ]

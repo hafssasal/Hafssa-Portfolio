@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { FiMoon, FiSun, FiMenu, FiX, FiArrowRight } from "react-icons/fi"
 
 export default function Navbar() {
     const sideMenuRef = useRef();
@@ -43,10 +44,6 @@ export default function Navbar() {
 
     return (
         <>
-            <div className="fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] dark:hidden">
-                <img src="./assets/header-bg-color.png" alt="" className="w-full" />
-            </div>
-
             <nav ref={navRef} className="w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50">
                 <a href="#!" className="text-2xl font-bold">
                     Hafssa<span className="text-purple-500">.</span>
@@ -61,28 +58,27 @@ export default function Navbar() {
                 </ul>
 
                 <div className="flex items-center gap-4">
-                    <button onClick={toggleTheme}>
-                        <img src="./assets/moon_icon.png" alt="" className="w-5 dark:hidden" />
-                        <img src="./assets/sun_icon.png" alt="" className="w-5 hidden dark:block" />
+
+                    <button onClick={toggleTheme} className="text-xl">
+                        <FiMoon className="dark:hidden"/>
+                        <FiSun className="hidden dark:block"/>
                     </button>
 
                     <a href="#contact" className="hidden lg:flex items-center gap-3 px-8 py-1.5 border border-gray-300 hover:bg-slate-100/70 dark:hover:bg-darkHover rounded-full ml-4 font-Ovo dark:border-white/30">
                         Contact
-                        <img src="./assets/arrow-icon.png" alt="" className="w-3 dark:hidden" />
-                        <img src="./assets/arrow-icon-dark.png" alt="" className="w-3 hidden dark:block" />
+                        <FiArrowRight/>
                     </a>
 
-                    <button className="block md:hidden ml-3" onClick={openMenu}>
-                        <img src="./assets/menu-black.png" alt="" className="w-6 dark:hidden" />
-                        <img src="./assets/menu-white.png" alt="" className="w-6 hidden dark:block" />
+                    <button className="block md:hidden ml-3 text-xl" onClick={openMenu}>
+                        <FiMenu className="dark:hidden"/>
+                        <FiMenu className="hidden dark:block"/>
                     </button>
                 </div>
 
                 <ul ref={sideMenuRef} className="flex md:hidden flex-col gap-4 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-rose-50 transition duration-500 font-Ovo dark:bg-darkHover dark:text-white">
 
-                    <div className="absolute right-6 top-6" onClick={closeMenu}>
-                        <img src="./assets/close-black.png" alt="" className="w-5 cursor-pointer dark:hidden" />
-                        <img src="./assets/close-white.png" alt="" className="w-5 cursor-pointer hidden dark:block" />
+                    <div className="absolute right-6 top-6 text-xl cursor-pointer" onClick={closeMenu}>
+                        <FiX/>
                     </div>
 
                     <li><a href="#top" onClick={closeMenu}>Accueil</a></li>

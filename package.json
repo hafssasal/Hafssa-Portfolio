@@ -2,8 +2,7 @@
   "name": "portfolio-react",
   "private": true,
   "version": "0.0.0",
- "homepage": "https://hafssasal.github.io/Hafssa-Portfolio",
-
+  "homepage": "https://hafssasal.github.io/Hafssa-Portfolio",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,9 +10,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-"deploy": "gh-pages -d dist -f"
-
-
+    "deploy": "gh-pages -d dist -f"
   },
   "dependencies": {
     "framer-motion": "^12.34.0",

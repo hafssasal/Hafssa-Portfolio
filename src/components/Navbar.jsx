@@ -1,84 +1,101 @@
-import { useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { FiMenu, FiX, FiArrowRight } from "react-icons/fi"
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Navbar() {
-    const sideMenuRef = useRef();
-    const navRef = useRef();
-    const navLinkRef = useRef();
-
-    const openMenu = () => {
-        sideMenuRef.current.style.transform = 'translateX(-16rem)';
-    }
-
-    const closeMenu = () => {
-        sideMenuRef.current.style.transform = 'translateX(16rem)';
-    }
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-        window.addEventListener('scroll', () => {
-            if (scrollY > 50) {
-                navRef.current.classList.add('bg-white', 'bg-opacity-50', 'backdrop-blur-lg', 'shadow-sm');
-                navLinkRef.current.classList.remove('bg-white', 'shadow-sm', 'bg-opacity-50');
-            } else {
-                navRef.current.classList.remove('bg-white', 'bg-opacity-50', 'backdrop-blur-lg', 'shadow-sm');
-                navLinkRef.current.classList.add('bg-white', 'shadow-sm', 'bg-opacity-50');
-            }
-        })
-
-    }, [])
+    const navLinks = [
+        { name: 'Accueil', href: '#top' },
+        { name: 'À propos', href: '#about' },
+        { name: 'Mes projets', href: '#projects' },
+        { name: 'Contact', href: '#contact' },
+    ];
 
     return (
-        <>
-            <nav ref={navRef} className="w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50">
-                <a href="#!" className="text-2xl font-bold">
-                    Hafssa<span className="text-purple-500">.</span>
-                </a>
+        <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'py-3' : 'py-5'}`}>
+            <div className={`mx-auto max-w-7xl px-6 md:px-12 transition-all duration-300
+                ${isScrolled ? 'bg-[#0a0014]/60 backdrop-blur-md border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]' : 'bg-transparent'}`}>
 
-                <ul
-                    ref={navLinkRef}
-                    className="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50 font-Ovo"
-                >
-                    <li><a className='hover:text-gray-500 transition' href="#top">Accueil</a></li>
-                    <li><a className='hover:text-gray-500 transition' href="#about">À propos</a></li>
-                    <li><a className='hover:text-gray-500 transition' href="#services">Services</a></li>
-                    <li><a className='hover:text-gray-500 transition' href="#work">Mes projets</a></li>
-                    <li><a className='hover:text-gray-500 transition' href="#contact">Contact</a></li>
-                </ul>
-
-                <div className="flex items-center gap-4">
-
-                    <a
-                        href="#contact"
-                        className="hidden lg:flex items-center gap-3 px-8 py-1.5 border border-gray-300 hover:bg-slate-100/70 rounded-full ml-4 font-Ovo"
-                    >
-                        Contact
-                        <FiArrowRight />
+                <div className="flex items-center justify-between h-16">
+                    <a href="#top" className="text-2xl font-bold tracking-wider relative group">
+                        <span className="text-white group-hover:text-neon-cyan transition-colors">Hafssa</span>
+                        <span className="text-neon-purple drop-shadow-[0_0_8px_rgba(176,38,255,0.8)]">.</span>
                     </a>
 
-                    <button className="block md:hidden ml-3 text-xl" onClick={openMenu}>
-                        <FiMenu />
-                    </button>
-                </div>
+                    {/* Desktop Menu */}
+                    <ul className="hidden md:flex items-center gap-8 rounded-full px-8 py-2 bg-white/5 border border-white/10 backdrop-blur-sm">
+                        {navLinks.map((link) => (
+                            <li key={link.name}>
+                                <a className='text-gray-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all text-sm font-medium tracking-wide' href={link.href}>
+                                    {link.name}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
 
-                <ul
-                    ref={sideMenuRef}
-                    className="flex md:hidden flex-col gap-4 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-rose-50 transition duration-500 font-Ovo"
-                >
-                    <div
-                        className="absolute right-6 top-6 text-xl cursor-pointer"
-                        onClick={closeMenu}
-                    >
-                        <FiX />
+                    <div className="flex items-center gap-4">
+                        <a
+                            href="#contact"
+                            className="hidden lg:flex items-center gap-2 px-6 py-2 rounded-full font-medium text-sm transition-all border border-neon-purple/50 text-neon-purple hover:bg-neon-purple hover:text-white hover:shadow-[0_0_15px_rgba(176,38,255,0.5)]"
+                        >
+                            Contact
+                            <FiArrowRight />
+                        </a>
+
+                        <button className="block md:hidden text-2xl text-white hover:text-neon-purple transition-colors" onClick={() => setIsMenuOpen(true)}>
+                            <FiMenu />
+                        </button>
                     </div>
+                </div>
+            </div>
 
-                    <li><a href="#top" onClick={closeMenu}>Accueil</a></li>
-                    <li><a href="#about" onClick={closeMenu}>À propos</a></li>
-                    <li><a href="#services" onClick={closeMenu}>Services</a></li>
-                    <li><a href="#work" onClick={closeMenu}>Mes projets</a></li>
-                    <li><a href="#contact" onClick={closeMenu}>Contact</a></li>
-                </ul>
-            </nav>
-        </>
+            {/* Mobile Menu */}
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-[#0a0014]/90 backdrop-blur-xl z-[60] flex flex-col items-center justify-center"
+                    >
+                        <button
+                            className="absolute top-8 right-8 text-3xl text-gray-400 hover:text-white transition-colors"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            <FiX />
+                        </button>
+
+                        <ul className="flex flex-col items-center gap-8 text-2xl font-medium">
+                            {navLinks.map((link) => (
+                                <motion.li
+                                    key={link.name}
+                                    initial={{ y: 20, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ delay: 0.1 }}
+                                >
+                                    <a
+                                        href={link.href}
+                                        onClick={() => setIsMenuOpen(false)}
+                                        className="text-gray-300 hover:text-neon-cyan hover:drop-shadow-[0_0_10px_rgba(0,243,255,0.5)] transition-all"
+                                    >
+                                        {link.name}
+                                    </a>
+                                </motion.li>
+                            ))}
+                        </ul>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </nav>
     )
 }
